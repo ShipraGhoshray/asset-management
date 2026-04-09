@@ -1,0 +1,15 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: pricing-service
+
+pricing:
+  assets:
+    - repo
+    - tba
+  thresholds:
+    repo: 1000.0
+    tba: 500.0
+  scheduler:
+    rate: 60000   # run every 1 mins(milliseconds)
