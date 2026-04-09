@@ -1,0 +1,36 @@
+package com.selflearning.service.engine;
+
+import com.selflearning.dto.NettingResponseDto;
+import com.selflearning.dto.NettingRequestDto;
+import com.selflearning.service.impl.PricingClient;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Component
+public abstract class BaseNettingEngine {
+
+    public NettingResponseDto processTask(NettingRequestDto nettingRequestDto){
+        System.out.println(nettingRequestDto.getAssetType() + " Processing starts...");
+        List<String> enrichedTrades = enrichTrades(nettingRequestDto);
+        List<String> buckets = generateBuckets(enrichedTrades);
+        NettingResponseDto report = processNetting(buckets);
+        generateReport(nettingRequestDto, report.getNetAmount(), buckets);
+        postProcess(nettingRequestDto, report);
+        return report;
+    }
+
+    protected abstract List<String> enrichTrades(NettingRequestDto request);
+    protected abstract List<String> generateBuckets(List<String> trades);
+    protected abstract NettingResponseDto processNetting(List<String> buckets);
+
+    private void generateReport(NettingRequestDto request, BigDecimal netAmount, List<String> buckets) {
+       // Asynchronous call
+    }
+
+    // Hook method (optional override)
+    protected void postProcess(NettingRequestDto request, NettingResponseDto response) {
+        // Default: do nothing, subclasses may log or audit
+    }
+}
