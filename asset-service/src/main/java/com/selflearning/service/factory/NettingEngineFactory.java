@@ -1,7 +1,7 @@
 package com.selflearning.service.factory;
 
 import com.selflearning.enums.AssetTypeEnum;
-import com.selflearning.exception.UnknownAssetTypeException;
+import com.selflearning.exception.ResourceNotFoundException;
 import com.selflearning.service.engine.BaseNettingEngine;
 import com.selflearning.service.engine.RepoNettingEngine;
 import com.selflearning.service.engine.TbaNettingEngine;
@@ -30,10 +30,10 @@ public class NettingEngineFactory {
             return switch (type) {
                 case REPO, REVREPO ->  repoNettingEngine; //new RepoNettingEngine(pricingClient);
                 case TBA -> tbaNettingEngine;
-                default -> throw new UnknownAssetTypeException(typeCode);
+                default -> throw new ResourceNotFoundException(typeCode);
             };
         } catch (IllegalArgumentException e) {
-            throw new UnknownAssetTypeException(typeCode);
+            throw new ResourceNotFoundException(typeCode);
         }
     }
 }

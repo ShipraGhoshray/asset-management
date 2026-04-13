@@ -1,17 +1,21 @@
-package com.selflearning.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.selflearning.dto;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Asset {
-    private String id;
+public class AssetResponseDto {
+    private String type;
     private String name;
-    private String type;       // e.g., Bond, Equity, Derivative
     private String description;
-    private double threshold;
+    private BigDecimal threshold;
     private String currency;
     private String status;
 }
