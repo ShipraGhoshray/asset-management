@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Bucket {
     private String id;
-    private String protfolioId;       // e.g., Bond, Equity, Derivative
+    private String portfolioId;       // e.g., Bond, Equity, Derivative
     private double marketValue;
     private String currency;
 }

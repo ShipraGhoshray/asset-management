@@ -1,6 +1,8 @@
 package com.selflearning.service.reportGenerator;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,13 +10,15 @@ import java.util.List;
 
 @Value
 @Builder
+@Getter
+@Setter
 public class NettingReportGenerator{
-    private String reportId;
-    private String assetType;
-    private String portfolioId;
-    private String BrokerId;
-    private String custodianId;
-    private BigDecimal netAmount;
-    private LocalDate valuationDate;
-    private List<String> trades;
+    String reportId;
+    String assetType;
+    String portfolioId;
+    String BrokerId;
+    String custodianId;
+    BigDecimal netAmount;
+    LocalDate valuationDate;
+    List<String> trades;
 }

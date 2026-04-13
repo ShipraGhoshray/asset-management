@@ -1,10 +1,8 @@
 package com.selflearning.enums;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public enum AssetTypeEnum {
     REPO("REPO", "Repos"),
     REVREPO("REVREPO", "Reverse-Repos"),
@@ -12,6 +10,10 @@ public enum AssetTypeEnum {
 
     private final String code;
     private final String description;
+    AssetTypeEnum(String code, String description) {
+        this.code = code;
+        this.description = description;
+    }
 
     public static AssetTypeEnum fromCode(String code) {
         for (AssetTypeEnum type : AssetTypeEnum.values()) {

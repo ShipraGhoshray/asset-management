@@ -4,7 +4,8 @@ import com.selflearning.dto.AssetRequestDto;
 import com.selflearning.dto.AssetResponseDto;
 import com.selflearning.dto.NettingRequestDto;
 import com.selflearning.dto.NettingResponseDto;
-//import com.selflearning.mapper.AssetMapper;
+import com.selflearning.mapper.AssetMapper;
+import com.selflearning.mapper.NettingMapper;
 import com.selflearning.model.Asset;
 import com.selflearning.repository.AssetRepository;
 import com.selflearning.service.AssetService;
@@ -17,44 +18,39 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AssetServiceImpl implements AssetService {
     private final NettingEngineFactory engineFactory;
-    //private final AssetMapper assetMapper;
+    private final AssetMapper assetMapper;
+    private final NettingMapper nettingMapper;
     private final AssetRepository assetRepository;
 
-    public AssetServiceImpl(NettingEngineFactory engineFactory, //AssetMapper assetMapper,
+    public AssetServiceImpl(NettingEngineFactory engineFactory,
+                            AssetMapper assetMapper, NettingMapper nettingMapper,
                             AssetRepository assetRepository) {
         this.engineFactory = engineFactory;
-        //this.assetMapper = assetMapper;
+        this.assetMapper = assetMapper;
+        this.nettingMapper = nettingMapper;
         this.assetRepository = assetRepository;
     }
 
     public AssetResponseDto createAsset(AssetRequestDto request) {
-        Asset asset = new Asset() ; //assetMapper.toEntity(request);
-        asset.setType(request.getType());
-        asset.setName(request.getName());
-        asset.setDescription(request.getDescription());
-        asset.setThreshold(request.getThreshold());
-        asset.setCurrency(request.getCurrency());
-        asset.setStatus(request.getStatus());
-        Asset saved = assetRepository.save(asset);
-        return null; //assetMapper.toResponse(saved);
+        Asset asset = assetMapper.toEntity(request);
+        return assetMapper.toResponseDto(assetRepository.save(asset));
     }
 
     public AssetResponseDto getAssetById(Long id) {
         Asset asset = assetRepository.getReferenceById(id);
-        return null; // assetMapper.toResponse(asset);
+        return assetMapper.toResponseDto(asset);
     }
 
     public List<AssetResponseDto> getAllAssets() {
         List<Asset> assets = assetRepository.findAll();
-        return null; /*assets.stream()
-                .map(assetMapper::toResponse)
-                .collect(Collectors.toList());*/
+        return assets.stream().map(assetMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
-
 
     public NettingResponseDto processTask(NettingRequestDto request) {
 
@@ -71,14 +67,14 @@ public class AssetServiceImpl implements AssetService {
                 .trades(request.getTrades())
                 .build();
 
-        // Step 3: Map domain object to DTO
+        /* Step 3: Map domain object to DTO
         NettingResponseDto response = new NettingResponseDto();
         response.setReportId(report.getReportId());
         response.setAssetType(report.getAssetType());
         response.setPortfolioId(report.getPortfolioId());
         response.setNetAmount(report.getNetAmount());
         response.setValuationDate(report.getValuationDate());
-        response.setTrades(report.getTrades());
-        return response;
+        response.setTrades(report.getTrades());*/
+        return nettingMapper.toNettingResponseDto(report);
     }
 }

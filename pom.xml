@@ -45,11 +45,7 @@
 
     <!-- Common dependencies (inherited by children) -->
     <dependencies>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-         Web starter (REST APIs, MVC) -->
+         <!--Web starter (REST APIs, MVC) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

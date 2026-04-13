@@ -3,14 +3,10 @@ package com.selflearning.mapper;
 import com.selflearning.dto.AssetRequestDto;
 import com.selflearning.dto.AssetResponseDto;
 import com.selflearning.model.Asset;
-import org.springframework.stereotype.Component;
-//import org.mapstruct.Mapper;
+import org.mapstruct.Mapper;
 
-//@Mapper(componentModel = "spring")
-@Component
+@Mapper(componentModel = "spring")
 public interface AssetMapper {
-
-    //@Mapping(target = "status", expression = "java(request.getStatus() != null ? request.getStatus() : \"Active\")")
-    Asset toEntity(AssetRequestDto request);
-    AssetResponseDto toResponse(Asset asset);
+    AssetResponseDto toResponseDto(Asset entity);
+    Asset toEntity(AssetRequestDto requestDto);
 }
