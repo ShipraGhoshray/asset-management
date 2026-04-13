@@ -1,10 +1,12 @@
 package com.selflearning.service.impl;
 
 import com.selflearning.service.PricingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Service
 public class PricingServiceImpl implements PricingService {
 
@@ -20,7 +22,7 @@ public class PricingServiceImpl implements PricingService {
     public double calculatePrice(String assetId) {
         // Example: fetch asset price from DB or API
         double price = Math.random() * 2000; // stubbed value
-        System.out.println("Calculated price for asset " + assetId + ": " + price);
+        log.info("Calculated price for asset " + assetId + ": " + price);
         return price;
     }
 }

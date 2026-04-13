@@ -1,0 +1,12 @@
+2026-04-13T18:35:35.960+04:00  INFO 10184 --- [pricing-service] [main] c.s.PricingServiceApplication            : Starting PricingServiceApplication using Java 17.0.1 with PID 10184 (E:\MyStuff\Softwares\Tech\Java\asset-management\asset-management\pricing-service\target\classes started by lenovo in E:\MyStuff\Softwares\Tech\Java\asset-management\asset-management)
+2026-04-13T18:35:35.967+04:00  INFO 10184 --- [pricing-service] [main] c.s.PricingServiceApplication            : No active profile set, falling back to 1 default profile: "default"
+2026-04-13T18:35:40.811+04:00  INFO 10184 --- [pricing-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8083 (http)
+2026-04-13T18:35:40.845+04:00  INFO 10184 --- [pricing-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-13T18:35:40.848+04:00  INFO 10184 --- [pricing-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-04-13T18:35:41.078+04:00  INFO 10184 --- [pricing-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-13T18:35:41.079+04:00  INFO 10184 --- [pricing-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4926 ms
+2026-04-13T18:35:43.413+04:00  INFO 10184 --- [pricing-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8083 (http) with context path ''
+2026-04-13T18:35:43.486+04:00  INFO 10184 --- [pricing-service] [main] c.s.PricingServiceApplication            : Started PricingServiceApplication in 10.17 seconds (process running for 11.873)
+2026-04-13T18:35:43.497+04:00  INFO 10184 --- [pricing-service] [main] c.s.PricingServiceApplication            : Pricing Service Application started!
+2026-04-13T18:35:43.611+04:00  INFO 10184 --- [pricing-service] [scheduling-1] c.s.service.impl.PricingServiceImpl      : Calculated price for asset repo: 1200.4598023056435
+2026-04-13T18:35:43.679+04:00  INFO 10184 --- [pricing-service] [scheduling-1] c.s.service.impl.PricingServiceImpl      : Calculated price for asset tba: 1438.9208849619145

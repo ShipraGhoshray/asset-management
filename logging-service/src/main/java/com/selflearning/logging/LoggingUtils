@@ -1,0 +1,14 @@
+ private static final Logger log = LoggerFactory.getLogger(LoggingUtils.class);
+
+    public static void logRequest(String serviceName, Object request) {
+        log.info("Service [{}] received request: {}", serviceName, request);
+    }
+
+    public static void logResponse(String serviceName, Object response) {
+        log.info("Service [{}] returning response: {}", serviceName, response);
+    }
+
+    public static void logError(String serviceName, Exception e) {
+        log.error("Service [{}] encountered error: {}", serviceName, e.getMessage(), e);
+    }
+}

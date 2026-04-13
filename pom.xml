@@ -21,6 +21,7 @@
         <module>common</module>
         <module>asset-service</module>
         <module>pricing-service</module>
+        <module>logging-service</module>
     </modules>
 
     <properties>

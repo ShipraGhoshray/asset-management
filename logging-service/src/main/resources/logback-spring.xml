@@ -1,0 +1,12 @@
+<configuration>
+    <!-- Console appender with JSON encoder -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventEncoder" />
+    </appender>
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <!-- Company package logs at DEBUG -->
+    <logger name="com.selflearning" level="DEBUG"/>
+</configuration>

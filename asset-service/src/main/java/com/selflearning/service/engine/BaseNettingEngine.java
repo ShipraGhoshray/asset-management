@@ -3,16 +3,18 @@ package com.selflearning.service.engine;
 import com.selflearning.dto.NettingResponseDto;
 import com.selflearning.dto.NettingRequestDto;
 import com.selflearning.service.impl.PricingClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Component
 public abstract class BaseNettingEngine {
 
     public NettingResponseDto processTask(NettingRequestDto nettingRequestDto){
-        System.out.println(nettingRequestDto.getAssetType() + " Processing starts...");
+        log.info(nettingRequestDto.getAssetType() + " Processing starts...");
         List<String> enrichedTrades = enrichTrades(nettingRequestDto);
         List<String> buckets = generateBuckets(enrichedTrades);
         NettingResponseDto report = processNetting(buckets);
