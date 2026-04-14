@@ -21,3 +21,6 @@
 2026-04-13T18:35:21.789+04:00  INFO 17152 --- [asset-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
 2026-04-13T18:35:21.837+04:00  INFO 17152 --- [asset-service] [main] c.selflearning.AssetServiceApplication   : Started AssetServiceApplication in 19.879 seconds (process running for 23.242)
 2026-04-13T18:35:21.847+04:00  INFO 17152 --- [asset-service] [main] c.selflearning.AssetServiceApplication   : Asset Service Application started!
+2026-04-13T18:42:14.158+04:00  INFO 17152 --- [asset-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-13T18:42:14.163+04:00  INFO 17152 --- [asset-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-13T18:42:14.249+04:00  INFO 17152 --- [asset-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,9 +1,9 @@
 server:
-  port: 8082
+  port: 8083
 spring:
   application:
     name: asset-service
 
 pricing:
   service:
-    url: http://localhost:8083
+    url: http://localhost:8084
