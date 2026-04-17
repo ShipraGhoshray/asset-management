@@ -4,14 +4,16 @@ CREATE SCHEMA asset_schema;
 SET search_path TO asset_schema;
 -- ==============================
 CREATE TABLE portfolio (
+    id BIGSERIAL PRIMARY KEY,              -- internal numeric key
+    portfolio_code VARCHAR(20) NOT NULL UNIQUE,  -- external business ID like PORT123
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+CREATE TABLE custodian (
     id BIGSERIAL PRIMARY KEY,
+    custodian_code VARCHAR(20) UNIQUE,
     name VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE custodian (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
-);
 
 CREATE TABLE broker (
     id BIGSERIAL PRIMARY KEY,
@@ -95,22 +97,6 @@ CREATE TABLE notification (
     CONSTRAINT fk_asset_notification FOREIGN KEY(asset_id) REFERENCES asset(id) ON DELETE CASCADE
 );
 
-CREATE TABLE app_user (
-    id BIGSERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    role VARCHAR(20) DEFAULT 'Viewer',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE user_asset_watchlist (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    asset_id BIGINT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES app_user(id) ON DELETE CASCADE,
-    CONSTRAINT fk_asset_watch FOREIGN KEY(asset_id) REFERENCES asset(id) ON DELETE CASCADE
-);
 
 -- ==============================
 -- Seed Data

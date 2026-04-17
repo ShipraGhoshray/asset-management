@@ -5,19 +5,24 @@ import com.selflearning.dto.NettingResponseDto;
 import com.selflearning.enums.AssetTypeEnum;
 import com.selflearning.model.PricingResponse;
 import com.selflearning.service.impl.PricingClient;
+import com.selflearning.service.reportGenerator.ReportProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 @Slf4j
 @Component
 public class RepoNettingEngine extends BaseNettingEngine{
 
+    private final ExecutorService reportExecutor;
     private final PricingClient pricingClient;
-    public RepoNettingEngine(PricingClient pricingClient) {
+    public RepoNettingEngine(ExecutorService reportExecutor, PricingClient pricingClient) {
+        this.reportExecutor = reportExecutor;
         this.pricingClient = pricingClient;
     }
 
@@ -43,5 +48,14 @@ public class RepoNettingEngine extends BaseNettingEngine{
         response.setNetAmount(new BigDecimal(price.getPrice()));
         response.setAssetType(AssetTypeEnum.REPO.getCode());
         return response;
+    }
+
+    @Override
+    public void generateReport(NettingRequestDto request, BigDecimal netAmount, List<String> buckets) {
+        CompletableFuture<String> future = ReportProcessor.nettingReport();
+        future.thenAccept(result -> {
+            System.out.println("Netting Report finished: " + result);
+        });
+        //reportExecutor.submit(ReportProcessor.nettingReport());
     }
 }

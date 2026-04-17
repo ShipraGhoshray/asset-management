@@ -24,4 +24,9 @@ public class TbaNettingEngine extends BaseNettingEngine{
     protected NettingResponseDto processNetting(List<String> buckets) {
         return null;
     }
+
+    @Override
+    protected void generateReport(NettingRequestDto request, BigDecimal netAmount, List<String> buckets) {
+
+    }
 }

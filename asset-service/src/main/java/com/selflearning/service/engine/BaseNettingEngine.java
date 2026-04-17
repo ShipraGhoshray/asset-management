@@ -26,10 +26,7 @@ public abstract class BaseNettingEngine {
     protected abstract List<String> enrichTrades(NettingRequestDto request);
     protected abstract List<String> generateBuckets(List<String> trades);
     protected abstract NettingResponseDto processNetting(List<String> buckets);
-
-    private void generateReport(NettingRequestDto request, BigDecimal netAmount, List<String> buckets) {
-       // Asynchronous call
-    }
+    protected abstract void generateReport(NettingRequestDto request, BigDecimal netAmount, List<String> buckets);
 
     // Hook method (optional override)
     protected void postProcess(NettingRequestDto request, NettingResponseDto response) {
