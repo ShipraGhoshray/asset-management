@@ -19,6 +19,7 @@
 
     <modules>
         <module>common</module>
+<!--        <module>bootstrap-loader</module>-->
         <module>asset-service</module>
         <module>pricing-service</module>
         <module>logging-service</module>

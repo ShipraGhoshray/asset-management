@@ -4,6 +4,7 @@ import com.selflearning.dto.NettingRequestDto;
 import com.selflearning.dto.NettingResponseDto;
 import com.selflearning.enums.AssetTypeEnum;
 import com.selflearning.model.PricingResponse;
+import com.selflearning.service.PortfolioService;
 import com.selflearning.service.impl.PricingClient;
 import com.selflearning.service.reportGenerator.ReportProcessor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,10 @@ import java.util.concurrent.ExecutorService;
 @Component
 public class RepoNettingEngine extends BaseNettingEngine{
 
-    private final ExecutorService reportExecutor;
+    private final PortfolioService portfolioService;
     private final PricingClient pricingClient;
-    public RepoNettingEngine(ExecutorService reportExecutor, PricingClient pricingClient) {
-        this.reportExecutor = reportExecutor;
+    public RepoNettingEngine(PortfolioService portfolioService, PricingClient pricingClient) {
+        this.portfolioService = portfolioService;
         this.pricingClient = pricingClient;
     }
 
@@ -35,6 +36,8 @@ public class RepoNettingEngine extends BaseNettingEngine{
     @Override
     public List<String> generateBuckets(List<String> trades) {
         log.info("Processing REPO Netting...");
+        var portfolios = portfolioService.getPortfolios();
+        log.info(portfolios.toString());
         return new ArrayList<>();
     }
 
