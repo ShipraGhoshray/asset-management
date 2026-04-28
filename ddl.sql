@@ -19,7 +19,13 @@ CREATE TABLE broker (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE
 );
-
+ 
+CREATE TABLE asset_mgmt.user (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
 -- ==============================
 -- Asset Table (static catalog)
 -- ==============================
@@ -206,3 +212,7 @@ INSERT INTO custodian (name) VALUES ('State Street'), ('BNY Mellon'), ('HSBC Cus
 
 -- Brokers
 INSERT INTO broker (name) VALUES ('Goldman Sachs'), ('Morgan Stanley'), ('JP Morgan');
+
+-- users
+INSERT INTO asset_mgmt.user (username, password, role) VALUES ('shipra', '$2a$10$hashedPasswordHere', 'ROLE_ADMIN');
+INSERT INTO asset_mgmt.user (username, password, role) VALUES ('joey', '$2a$10$hashedPasswordHere', 'ROLE_USER');
