@@ -47,7 +47,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2023.0.0</version> <!-- adjust to latest -->
+                <version>2023.0.1</version> <!-- adjust to latest -->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

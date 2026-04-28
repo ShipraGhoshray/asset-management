@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -13,11 +14,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-@SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.selflearning.repository")
 @EntityScan(basePackages = "com.selflearning.model")
-@EnableAsync
+@EnableAsync //??
+@EnableFeignClients
 @EnableCaching
+@SpringBootApplication
 public class AssetServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(com.selflearning.CommonApplication.class, args);
