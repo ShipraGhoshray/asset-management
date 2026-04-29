@@ -20,23 +20,9 @@ import org.springframework.context.annotation.Configuration;
         bearerFormat = "JWT"
 )
 public class SwaggerConfig {
-    //microservice:
-        // ?? http://localhost:8083/api/v3/api-docs
-        // ?? http://localhost:8083/api/swagger-ui/index.html#/
-
-        //http://localhost:8083/v3/api-docs
-        //http://localhost:8080/asset-service/v3/api-docs
-        // http://localhost:8083/swagger-ui/index.html#/
-    //gateway:
-        //http://localhost:8080/asset-service/api/v3/api-docs
-        //http://localhost:8080/webjars/swagger-ui/index.html
-
-    /*@Bean
-    public OpenAPI assetOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Asset Service API")
-                        .version("1.0")
-                        .description("API documentation for Asset Service"));
-    }*/
+    //swagger Aggregator:http://localhost:8083/swagger-ui/index.html#/
+    //http://localhost:8080/webjars/swagger-ui/index.html
+    //microservice: http://localhost:8083/v3/api-docs
+    //gateway: //http://localhost:8080/asset-service/v3/api-docs
+    //http://localhost:8080/asset-service/api/v3/api-docs
 }
