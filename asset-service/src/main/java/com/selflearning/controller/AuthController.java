@@ -1,30 +1,50 @@
 package com.selflearning.controller;
-import com.selflearning.dto.RegisterRequestDto;
+
+import com.selflearning.config.JwtUtil;
+import com.selflearning.dto.LoginRequestDto;
+import com.selflearning.dto.TokenResponseDto;
 import com.selflearning.dto.UserResponseDto;
-import com.selflearning.model.User;
 import com.selflearning.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Tag(name = "Users", description = "Auth service APIs")
 public class AuthController {
 
     private final UserService userService;
-    public AuthController(UserService userService) {
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequestDto request) {
-        User user = userService.registerUser(request.getUsername(), request.getPassword(), request.getRole());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<String> register(@RequestBody LoginRequestDto request) {
+        userService.register(request.getUsername(), request.getPassword(), request.getRole());
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto request) {
+        log.info("Login attempt for: " + request.getUsername());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                        request.getUsername(), request.getPassword())
+        );
+        String token = jwtUtil.generateToken(request.getUsername());
+        return ResponseEntity.ok(new TokenResponseDto(token));
     }
 
     @GetMapping

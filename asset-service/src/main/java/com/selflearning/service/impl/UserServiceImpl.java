@@ -4,16 +4,19 @@ import com.selflearning.mapper.UserMapper;
 import com.selflearning.model.User;
 import com.selflearning.repository.UserRepository;
 import com.selflearning.service.UserService;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
@@ -26,7 +29,12 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User registerUser(String username, String rawPassword, String role) {
+    @Override
+    public User register(String username, String rawPassword, String role) {
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(rawPassword)); // hash password
@@ -41,8 +49,9 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    /*@Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("Loading user: " + username);
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -51,5 +60,5 @@ public class UserServiceImpl implements UserService {
                 .password(user.getPassword())
                 .roles(user.getRole()) // if stored as "ADMIN"
                 .build();
-    }*/
+    }
 }

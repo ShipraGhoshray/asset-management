@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/assets")
+@RequestMapping("/api/assets")
 @Tag(name = "Assets", description = "Asset service APIs")
 public class AssetController {
 

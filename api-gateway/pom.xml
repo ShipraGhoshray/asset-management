@@ -21,11 +21,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- Optional: Spring Security if you want JWT/Auth
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
         <!-- Spring Boot WebFlux starter (reactive stack) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,7 +33,7 @@
             <version>2.5.0</version>
         </dependency>
     </dependencies>
-    <!-- Exclude spring-boot-starter-web inherited from parent -->
+    <!-- Exclude spring-boot-starter-web inherited from parent
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -61,7 +56,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement> -->
     <build>
         <plugins>
             <!-- Spring Boot Maven plugin -->
