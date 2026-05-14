@@ -1,0 +1,32 @@
+server:
+  port: 8087
+logging:
+  file:
+    name: logs/report-service.log
+  level:
+    root: INFO
+
+spring:
+  kafka:
+    bootstrap-servers: 172.27.205.201:9092
+    consumer:
+      group-id: report-service-v3
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.use.type.headers: false
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+kafka:
+  topics:
+    order-created: "order-created"
+    #report-command: "report-command"
+    report-events: "report-events"
+  partitions: 3
+  replication-factor: 1
