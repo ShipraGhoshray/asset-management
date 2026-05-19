@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.selflearning</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>logging-service</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

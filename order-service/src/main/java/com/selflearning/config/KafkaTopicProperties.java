@@ -16,9 +16,6 @@ public class KafkaTopicProperties {
 
     @Getter @Setter
     public static class Topics {
-        //private String reportCommand;
-        private String orderCreated;
-        //private String tradeExecuted;
-        private String reportEvents;
+        private String reportCommand;
     }
 }

@@ -1,9 +1,7 @@
 package com.selflearning.service;
 
-import com.selflearning.dto.ReportRequest;
-import com.selflearning.messaging.events.OrderCreatedEvent;
+import com.selflearning.messaging.events.ReportCommand;
 
 public interface ReportService {
-    void report(OrderCreatedEvent event);
-    public void reportCat(ReportRequest request);
+    public void report(ReportCommand request);
 }

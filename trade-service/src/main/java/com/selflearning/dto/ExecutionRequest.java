@@ -1,8 +1,7 @@
-package com.selflearning.messaging.events;
+package com.selflearning.dto;
 
 import java.math.BigDecimal;
-
-public record ExecuteTradeEvent(
+public record ExecutionRequest(
         String orderId,
         String symbol,
         BigDecimal quantity,

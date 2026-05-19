@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class AssetServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(com.selflearning.CommonApplication.class, args);
+        SpringApplication.run(com.selflearning.AssetServiceApplication.class, args);
         log.info("Asset Service Application started!");
 
         //Enumset
@@ -39,5 +40,26 @@ public class AssetServiceApplication {
         System.out.println("b1 equals b2? " + b1.equals(b2)); // false
         System.out.println("b2 equals b4? " + b2.equals(b4)); // true
 
+
+
+        //Fail Fast
+        try{
+            List<String> failFastList = new ArrayList<>(List.of("A", "B", "C"));
+            Iterator<String> itr = failFastList.iterator();
+            while (itr.hasNext()) {
+                System.out.println("failFastList - " + itr.next());
+                failFastList.add("D"); // Structural modification during iteration
+            }
+        }catch (ConcurrentModificationException e){
+            System.out.println("fail fast iterator failed on adding element during iteration");
+        }
+        //Fail safe
+        CopyOnWriteArrayList<String> failSafeList = new CopyOnWriteArrayList<>(List.of("A", "B", "C"));
+        Iterator<String> itr2 = failSafeList.iterator();
+        while (itr2.hasNext()) {
+            System.out.println("failSafeList - " + itr2.next());
+            failSafeList.add("D"); // Allowed, no exception
+        }
+        System.out.println("Final list: " + failSafeList);
     }
 }

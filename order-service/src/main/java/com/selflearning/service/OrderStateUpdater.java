@@ -29,10 +29,10 @@ public class OrderStateUpdater {
         orderRepository.save(order);
     }
 
-    public void markOrderCatReported(String s) {
+    public void markOrderEventReported(String s) {
 
     }
-    public void markExecutionCatReported(String s) {
+    public void markExecutionEventReported(String s) {
 
     }
 }

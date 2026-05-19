@@ -22,7 +22,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: asset_mgmt
   kafka:
-    bootstrap-servers: 172.27.205.201:9092
+    bootstrap-servers: 172.18.92.130:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -39,8 +39,8 @@ spring:
 kafka:
   topics:
     order-created: "order-created"
-    #trade-executed: "trade-execution"
-    #report-command: "report-command"
+    trade-execution: "trade-execution"
+    report-command: "report-command"
     report-events: "report-events"
   partitions: 3
   replication-factor: 1

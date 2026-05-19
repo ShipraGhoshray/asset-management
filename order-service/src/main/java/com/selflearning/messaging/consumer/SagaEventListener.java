@@ -1,6 +1,7 @@
 package com.selflearning.messaging.consumer;
 
 import com.selflearning.messaging.events.ReportEvent;
+import com.selflearning.messaging.events.TradeExecutionEvent;
 import com.selflearning.service.SagaOrchestrator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -18,5 +19,13 @@ public class SagaEventListener {
     )
     public void onReportEvent(ReportEvent event) {
         orchestrator.handleReportEvent(event);
+    }
+
+    @KafkaListener(
+            topics = "${kafka.topics.trade-execution}",
+            groupId = "${spring.kafka.consumer.group-id}"
+    )
+    public void onTradeExecution(TradeExecutionEvent event) {
+        orchestrator.handleTradeExecution(event);
     }
 }

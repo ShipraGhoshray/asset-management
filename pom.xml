@@ -18,11 +18,13 @@
     <name>Asset Management Parent</name>
 
     <modules>
-        <module>common</module>
-<!--        <module>bootstrap-loader</module>-->
         <module>asset-service</module>
         <module>pricing-service</module>
         <module>logging-service</module>
+        <module>messaging-common</module>
+        <module>order-service</module>
+        <module>trade-service</module>
+        <module>report-service</module>
         <module>api-gateway</module>
     </modules>
 

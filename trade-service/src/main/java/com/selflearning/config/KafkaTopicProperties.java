@@ -17,6 +17,6 @@ public class KafkaTopicProperties {
 
     @Getter @Setter
     public static class Topics {
-        private String reportEvents;
+        private String tradeExecution;
     }
 }

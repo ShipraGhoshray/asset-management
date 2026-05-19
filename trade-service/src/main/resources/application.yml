@@ -1,31 +1,41 @@
 server:
-  port: 8087
+  port: 8086
 logging:
   file:
-    name: logs/report-service.log
+    name: logs/trade-service.log
   level:
     root: INFO
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/asset-management
+    username: postgres
+    password: shipra123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: asset_mgmt
+
   kafka:
     bootstrap-servers: 172.18.92.130:9092
     consumer:
-      group-id: report-service-v3
+      group-id: trade-service-v1
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.use.type.headers: false
         spring.json.trusted.packages: "*"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.add.type.headers: false
-
 kafka:
   topics:
-    report-command: "report-command"
-    report-events: "report-events"
+    trade-execution: "trade-execution"
   partitions: 3
   replication-factor: 1
