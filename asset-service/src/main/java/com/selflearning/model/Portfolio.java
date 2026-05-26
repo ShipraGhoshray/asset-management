@@ -24,10 +24,11 @@ public class Portfolio implements Serializable, Comparable<Portfolio>{
     @Column(name = "name")
     private String portfolioName;
 
-    public Portfolio(String portFolioCode, String portfolioName) {
-        this.portfolioCode = portFolioCode;
-        this.portfolioName = portfolioName;
-    }
+    @Column(name = "account_id")
+    private String accountId;
+
+    @Column(name = "created_at")
+    private String createdAt;
 
     @Override
     public int compareTo(Portfolio o) {

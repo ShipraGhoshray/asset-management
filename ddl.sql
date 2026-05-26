@@ -5,8 +5,10 @@ SET search_path TO asset_schema;
 -- ==============================
 CREATE TABLE portfolio (
     id BIGSERIAL PRIMARY KEY,              -- internal numeric key
-    portfolio_code VARCHAR(20) NOT NULL UNIQUE,  -- external business ID like PORT123
-    name VARCHAR(100) NOT NULL UNIQUE
+    --portfolio_code VARCHAR(20) NOT NULL UNIQUE,  -- external business ID like PORT123
+    name VARCHAR(100) NOT NULL UNIQUE,
+	account_id VARCHAR(50) NOT NULL UNIQUE,
+    created_at  TIMESTAMP NOT NULL
 );
 CREATE TABLE custodian (
     id BIGSERIAL PRIMARY KEY,
@@ -41,7 +43,7 @@ CREATE TABLE asset (
 CREATE TABLE trade (
     id BIGSERIAL PRIMARY KEY,
     asset_id BIGINT NOT NULL,
-    portfolio_id BIGINT NOT NULL,
+    portfolio_id VARCHAR(50) NOT NULL,
     broker_id BIGINT NOT NULL,
     custodian_id BIGINT NOT NULL,
     trade_date DATE NOT NULL,
@@ -60,7 +62,7 @@ CREATE TABLE trade (
 -- Bucket Table (netting rules)
 CREATE TABLE bucket (
     id BIGSERIAL PRIMARY KEY,
-    portfolio_id BIGINT NOT NULL,
+    portfolio_id VARCHAR(50) NOT NULL,
     broker_id BIGINT NOT NULL,
     custodian_id BIGINT NOT NULL,
     netting_group VARCHAR(50) NOT NULL,
@@ -93,13 +95,25 @@ CREATE TABLE notification (
 );
 
 CREATE TABLE orders (
-    id VARCHAR(255) PRIMARY KEY,
-    symbol VARCHAR(20) NOT NULL,
-    quantity INT NOT NULL,
-    side VARCHAR(10) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id              VARCHAR(50) PRIMARY KEY,
+    account_id      VARCHAR(50) NOT NULL,
+    symbol          VARCHAR(20) NOT NULL,
+    side 			VARCHAR(10) NOT NULL,
+	quantity        DECIMAL(18,4) NOT NULL,
+    price           DECIMAL(18,4),
+    filled_quantity DECIMAL(18,4) DEFAULT 0,
+    avg_price       DECIMAL(18,8) DEFAULT 0,
+    status          VARCHAR(30) NOT NULL,
+    created_at      TIMESTAMP NOT NULL,
+    updated_at      TIMESTAMP
+);
+CREATE TABLE order_executions (
+    id                VARCHAR(50) PRIMARY KEY,
+    order_id          VARCHAR(50) NOT NULL,
+    executed_quantity DECIMAL(18,4) NOT NULL,
+    executed_price    DECIMAL(18,8) NOT NULL,
+    execution_time    TIMESTAMP NOT NULL,
+    CONSTRAINT fk_execution_order FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE executions (
@@ -112,9 +126,22 @@ CREATE TABLE executions (
     execution_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     reported BOOLEAN NOT NULL DEFAULT FALSE
 );
+CREATE TABLE holding (
+    id            VARCHAR(50) PRIMARY KEY,
+    portfolio_id  VARCHAR(50) NOT NULL,
+    symbol        VARCHAR(20) NOT NULL,
+    quantity      DECIMAL(18,4) NOT NULL,
+    avg_price     DECIMAL(18,8) NOT NULL,
+    CONSTRAINT fk_holding_portfolio FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
+);
 -- Seed Data
 -- Portfolios
 INSERT INTO portfolio (name) VALUES ('Fixed Income Portfolio'), ('Equity Portfolio'), ('Derivatives Portfolio');
+INSERT INTO portfolio (id, name, account_id, created_at) VALUES
+('PF-ACC001', 'ACC001 Portfolio', 'ACC001', NOW()),
+('PF-ACC002', 'ACC002 Portfolio', 'ACC002', NOW()),
+('PF-ACC003', 'ACC003 Portfolio', 'ACC003', NOW());
+
 -- Custodians
 INSERT INTO custodian (name) VALUES ('State Street'), ('BNY Mellon'), ('HSBC Custody');
 -- Brokers

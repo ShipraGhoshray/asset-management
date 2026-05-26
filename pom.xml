@@ -26,6 +26,7 @@
         <module>trade-service</module>
         <module>report-service</module>
         <module>api-gateway</module>
+        <module>portfolio-service</module>
     </modules>
 
     <properties>

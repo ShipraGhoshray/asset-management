@@ -1,0 +1,38 @@
+server:
+  port: 8088
+spring:
+  main:
+    web-application-type: servlet
+  logging:
+    file:
+      name: logs/portfoio-service.log
+    level:
+      root: INFO
+  datasource:
+    url: jdbc:postgresql://localhost:5432/asset-management
+    username: postgres
+    password: shipra123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: asset_mgmt
+  kafka:
+    bootstrap-servers: 172.18.92.130:9092
+    consumer:
+      group-id: portfolio-service-v3
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.selflearning.messaging.events"
+        spring.json.use.type.headers: true
+kafka:
+  topics:
+    order-execution: "order-execution"
+  partitions: 3
+  replication-factor: 1

@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
         OrderCreatedEvent event = new OrderCreatedEvent(
                 String.valueOf(savedOrder.getId()),
                 savedOrder.getSymbol(),
-                BigDecimal.valueOf(savedOrder.getQuantity()),
+                savedOrder.getQuantity(),
                 savedOrder.getPrice(),
                 savedOrder.getSide(),
                 savedOrder.getCreatedAt() == null ? LocalDate.now().toString() : savedOrder.getCreatedAt().toString()

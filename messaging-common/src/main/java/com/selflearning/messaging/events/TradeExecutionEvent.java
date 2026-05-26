@@ -5,6 +5,6 @@ import java.math.BigDecimal;
 public record TradeExecutionEvent(String orderId,
                                   String tradeId,
                                   String symbol,
-                                  BigDecimal quantity,
-                                  BigDecimal price
+                                  BigDecimal executedQuantity,
+                                  BigDecimal executedPrice
 ) {}
