@@ -1,14 +1,12 @@
 package com.selflearning.model;
 
+import com.selflearning.messaging.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -39,8 +37,9 @@ public class Order {
     @Column(precision = 10, scale = 2)
     private BigDecimal avgPrice;        // weighted average execution price
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status; // NEW, EXECUTED, REPORTED, etc.
+    private OrderStatus status;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -71,9 +70,9 @@ public class Order {
         this.avgPrice = newAvg;
         // update status
         if (newFilled.compareTo(filledQuantity) < 0) {
-            this.status = "PARTIAL_FILLED";
+            this.status = OrderStatus.PARTIALLY_FILLED;
         } else {
-            this.status = "FILLED";
+            this.status = OrderStatus.FILLED;
         }
         this.updatedAt = LocalDateTime.now();
     }

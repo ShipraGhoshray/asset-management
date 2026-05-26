@@ -1,9 +1,9 @@
-package com.selflearning.domain;
+package com.selflearning.messaging;
 
 public enum OrderStatus {
     NEW,
     REJECTED,
-    UNFILLED,
     PARTIALLY_FILLED,
-    FILLED
+    FILLED,
+    EXECUTED
 }

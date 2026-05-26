@@ -103,7 +103,7 @@ CREATE TABLE orders (
     price           DECIMAL(18,4),
     filled_quantity DECIMAL(18,4) DEFAULT 0,
     avg_price       DECIMAL(18,8) DEFAULT 0,
-    status          VARCHAR(30) NOT NULL,
+    status          VARCHAR(20) NOT NULL,
     created_at      TIMESTAMP NOT NULL,
     updated_at      TIMESTAMP
 );
@@ -136,11 +136,10 @@ CREATE TABLE holding (
 );
 -- Seed Data
 -- Portfolios
-INSERT INTO portfolio (name) VALUES ('Fixed Income Portfolio'), ('Equity Portfolio'), ('Derivatives Portfolio');
 INSERT INTO portfolio (id, name, account_id, created_at) VALUES
-('PF-ACC001', 'ACC001 Portfolio', 'ACC001', NOW()),
-('PF-ACC002', 'ACC002 Portfolio', 'ACC002', NOW()),
-('PF-ACC003', 'ACC003 Portfolio', 'ACC003', NOW());
+('PORT001', 'Equity Portfolio', 'ACC001', NOW()),
+('PORT002', 'Fixed Income Portfolio', 'ACC002', NOW()),
+('PORT003', 'Derivatives Portfolio', 'ACC003', NOW());
 
 -- Custodians
 INSERT INTO custodian (name) VALUES ('State Street'), ('BNY Mellon'), ('HSBC Custody');

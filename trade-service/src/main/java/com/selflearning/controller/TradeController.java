@@ -1,6 +1,9 @@
 package com.selflearning.controller;
 
+import com.selflearning.client.OrderServiceClient;
 import com.selflearning.dto.ExecutionRequest;
+import com.selflearning.dto.OrderStatusResponse;
+import com.selflearning.messaging.OrderStatus;
 import com.selflearning.service.TradeService;
 import com.selflearning.service.TradeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +22,11 @@ public class TradeController {
 
     @PostMapping("/execute")
     public ResponseEntity<String> executeTrade(@RequestBody ExecutionRequest request) {
-        tradeService.executeTrade(request);
-        return ResponseEntity.ok("Trade execution completed");
+        OrderStatus status = tradeService.executeTrade(request);
+        if (status == OrderStatus.FILLED) {
+            return ResponseEntity.badRequest().body("Order already executed. Cannot execute again.");
+        }else{
+            return ResponseEntity.ok("Trade execution completed");
+        }
     }
 }

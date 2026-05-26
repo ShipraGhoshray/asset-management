@@ -1,6 +1,7 @@
 package com.selflearning.controller;
 
 import com.selflearning.dto.CreateOrderRequest;
+import com.selflearning.dto.OrderStatusResponse;
 import com.selflearning.model.Order;
 import com.selflearning.service.impl.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,8 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<String> createOrder(@RequestBody CreateOrderRequest request) {
-        orderService.createOrder(request);
-        return ResponseEntity.ok("Order Created!");
+        String orderId = orderService.createOrder(request);
+        return ResponseEntity.ok("Order Created: " + orderId);
     }
 
     @GetMapping
@@ -30,5 +31,10 @@ public class OrderController {
     @GetMapping("/symbol/{symbol}")
     public List<Order> getOrdersBySymbol(@PathVariable String symbol) {
         return orderService.getOrdersBySymbol(symbol);
+    }
+
+    @GetMapping("/{orderId}/status")
+    public OrderStatusResponse getOrderStatus(@PathVariable String orderId) {
+        return orderService.getOrderStatusById(orderId);
     }
 }

@@ -1,9 +1,10 @@
 package com.selflearning.service.impl;
 
+import com.selflearning.dto.OrderStatusResponse;
 import com.selflearning.mapper.OrderMapper;
+import com.selflearning.messaging.OrderStatus;
 import com.selflearning.messaging.events.OrderCreatedEvent;
 import com.selflearning.model.Order;
-import com.selflearning.domain.OrderStatus;
 import com.selflearning.dto.CreateOrderRequest;
 import com.selflearning.repository.OrderRepository;
 import com.selflearning.service.OrderService;
@@ -13,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +28,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void createOrder(CreateOrderRequest request) {
+    public String createOrder(CreateOrderRequest request) {
         Order order = mapper.toEntity(request);
         order.setId(IdGeneratorUtil.orderId());
-        order.setStatus(OrderStatus.NEW.toString());
+        order.setStatus(OrderStatus.NEW);
         Order savedOrder = orderRepository.save(order);
         OrderCreatedEvent event = new OrderCreatedEvent(
                 String.valueOf(savedOrder.getId()),
@@ -41,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
                 savedOrder.getCreatedAt() == null ? LocalDate.now().toString() : savedOrder.getCreatedAt().toString()
         );
         orchestrator.handleOrderCreated(event);
+        return savedOrder.getId();
     }
 
     @Override
@@ -51,5 +53,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrdersBySymbol(String symbol) {
         return orderRepository.findBySymbol(symbol);
+    }
+
+    @Override
+    public OrderStatusResponse getOrderStatusById(String id) {
+        Optional<Order> order = Optional.ofNullable(orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found")));
+        return order.map(value -> new OrderStatusResponse(
+                        value.getId(), value.getStatus()))
+                .orElse(null);
     }
 }

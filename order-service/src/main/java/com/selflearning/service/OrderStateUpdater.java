@@ -1,7 +1,7 @@
 package com.selflearning.service;
 
-import com.selflearning.domain.OrderStatus;
 import com.selflearning.messaging.ExecutionType;
+import com.selflearning.messaging.OrderStatus;
 import com.selflearning.messaging.events.TradeExecutionEvent;
 import com.selflearning.model.Order;
 import com.selflearning.repository.OrderRepository;
@@ -21,15 +21,14 @@ public class OrderStateUpdater {
     public void markOrderRejected(String orderId, String reason) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow();
-        order.setStatus(OrderStatus.REJECTED.toString());
+        order.setStatus(OrderStatus.REJECTED);
         orderRepository.save(order);
     }
 
     @Transactional
     public void markOrderFilled(String orderId) {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow();
-        order.setStatus(OrderStatus.FILLED.toString());
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.setStatus(OrderStatus.FILLED);
         orderRepository.save(order);
     }
 
@@ -60,7 +59,8 @@ public class OrderStateUpdater {
 
         ExecutionType executionType = newFilled.compareTo(order.getQuantity()) < 0
                 ? ExecutionType.PARTIAL_FILL : ExecutionType.FULL_FILL;
-        order.setStatus(executionType == ExecutionType.FULL_FILL ? "FILLED" : "PARTIAL_FILLED");
+        order.setStatus(executionType == ExecutionType.FULL_FILL
+                ? OrderStatus.FILLED : OrderStatus.PARTIALLY_FILLED);
         return orderRepository.save(order);
     }
 }
