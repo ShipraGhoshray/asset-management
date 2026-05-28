@@ -22,7 +22,6 @@ public class Portfolio {
     @Id
     private String id;
     private String name;
-    //private String portfolioCode;
     private String accountId;
     private LocalDateTime createdAt;
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)

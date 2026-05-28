@@ -1,10 +1,10 @@
 package com.selflearning.service;
 
-import com.selflearning.model.Portfolio;
+import com.selflearning.model.PortfolioReadModel;
 
 import java.util.List;
 
 public interface PortfolioService {
-    public List<Portfolio> getPortfolios();
-    public Portfolio getPortfolioById(long id);
+    public List<PortfolioReadModel> getPortfolios();
+    public PortfolioReadModel getPortfolioById(long id);
 }

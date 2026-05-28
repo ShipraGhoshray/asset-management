@@ -3,7 +3,24 @@ server:
 spring:
   application:
     name: asset-service
-
+  logging:
+    file:
+      name: logs/asset-service.log
+    level:
+      root: INFO
+  datasource:
+    url: jdbc:postgresql://localhost:5432/asset-management
+    username: postgres
+    password: shipra123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: asset_mgmt
 pricing:
   service:
     url: http://localhost:8084

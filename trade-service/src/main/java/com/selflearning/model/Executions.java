@@ -1,6 +1,6 @@
 package com.selflearning.model;
 
-import com.selflearning.domain.ExecutionStatus;
+import com.selflearning.messaging.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +19,6 @@ import java.time.Instant;
 public class Executions {
 
     @Id
-    /*@GeneratedValue(generator = "UUID")
-    @org.hibernate.annotations.GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )*/
     private String id;
 
     @Column(nullable = false)
@@ -40,7 +35,7 @@ public class Executions {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ExecutionStatus status;
+    private OrderStatus status;
 
     @Column(nullable = false)
     private Instant executionTime = Instant.now();

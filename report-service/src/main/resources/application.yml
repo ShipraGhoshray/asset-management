@@ -1,12 +1,11 @@
 server:
   port: 8087
-logging:
-  file:
-    name: logs/report-service.log
-  level:
-    root: INFO
-
 spring:
+  logging:
+    file:
+      name: logs/report-service.log
+    level:
+      root: INFO
   kafka:
     bootstrap-servers: 172.18.92.130:9092
     consumer:

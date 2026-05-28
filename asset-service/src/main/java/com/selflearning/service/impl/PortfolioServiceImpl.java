@@ -1,6 +1,6 @@
 package com.selflearning.service.impl;
 
-import com.selflearning.model.Portfolio;
+import com.selflearning.model.PortfolioReadModel;
 import com.selflearning.repository.PortfolioRepository;
 import com.selflearning.service.PortfolioService;
 import jakarta.annotation.PostConstruct;
@@ -27,7 +27,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @PostConstruct
     public void preloadCache() {
-        List<Portfolio> portfolios = portfolioRepository.findAll();
+        List<PortfolioReadModel> portfolios = portfolioRepository.findAll();
         Cache cache = cacheManager.getCache("portfolios");
         if (cache != null) {
             portfolios.forEach(p -> cache.put(p.getId(), p)); // put directly into cache
@@ -35,29 +35,29 @@ public class PortfolioServiceImpl implements PortfolioService {
         log.info("Portfolio data cached at startup (single DB hit).");
     }
 
-    public Portfolio getPortfolioFromCache(Long id) {
+    public PortfolioReadModel getPortfolioFromCache(Long id) {
         Cache cache = cacheManager.getCache("portfolios");
         if (cache != null) {
-            return cache.get(id, Portfolio.class); // returns cached Portfolio or null if not present
+            return cache.get(id, PortfolioReadModel.class); // returns cached Portfolio or null if not present
         }
         return null;
     }
 
     @Override
-    public List<Portfolio> getPortfolios(){
-        List<Portfolio> portfolioList = new ArrayList<>();
+    public List<PortfolioReadModel> getPortfolios(){
+        List<PortfolioReadModel> portfolioList = new ArrayList<>();
         Cache cache = cacheManager.getCache("portfolios");
         if (cache instanceof ConcurrentMapCache concurrentMapCache) {
             Map<Object, Object> nativeCache = concurrentMapCache.getNativeCache();
             for (Object value : nativeCache.values()) {
-                portfolioList.add((Portfolio) value);
+                portfolioList.add((PortfolioReadModel) value);
             }
         }
         return portfolioList;
     }
 
     @Override
-    public Portfolio getPortfolioById(long id){
+    public PortfolioReadModel getPortfolioById(long id){
         return getPortfolioFromCache(id);
     }
 }

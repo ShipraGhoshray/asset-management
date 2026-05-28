@@ -1,14 +1,14 @@
 server:
   port: 8086
-logging:
-  file:
-    name: logs/trade-service.log
-  level:
-    root: INFO
 order:
   service:
     url: http://localhost:8085
 spring:
+  logging:
+    file:
+      name: logs/trade-service.log
+    level:
+      root: INFO
   datasource:
     url: jdbc:postgresql://localhost:5432/asset-management
     username: postgres

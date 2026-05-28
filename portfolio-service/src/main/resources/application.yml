@@ -5,7 +5,7 @@ spring:
     web-application-type: servlet
   logging:
     file:
-      name: logs/portfoio-service.log
+      name: logs/portfolio-service.log
     level:
       root: INFO
   datasource:
