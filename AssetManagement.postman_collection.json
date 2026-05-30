@@ -1,0 +1,328 @@
+{
+  "info": {
+    "_postman_id": "b86bfb73-376c-4f26-904b-a740f2505dc9",
+    "name": "AssetManagement",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32412613"
+  },
+  "item": [
+    {
+      "name": "asset-service",
+      "item": [
+        {
+          "name": "netting",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaG9lYmUiLCJpYXQiOjE3Nzk5NTQ4MDgsImV4cCI6MTc4MDA0MTIwOH0.RmO9worlBmistCz0HjwZn4WklXk8JxmvWqf6c83_p_o",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"assetType\": \"REPO\",\r\n  \"portfolioId\": \"P12345\",\r\n  \"brokerId\": \"B67890\",\r\n  \"custodianId\": \"C24680\",\r\n  \"reportFormat\" : \"PDF\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/assets/netting",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "assets",
+                "netting"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "assets",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"type\": \"NDA\",\r\n  \"name\": \"Non-Disclosure Agreement\",\r\n  \"description\": \"Government issued Non-Disclosure Agreement\",\r\n  \"threshold\": 5000,\r\n  \"currency\": \"USD\",\r\n  \"status\": \"Active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/assets",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "assets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "assets",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaG9lYmUiLCJpYXQiOjE3Nzk5NTQ0MjcsImV4cCI6MTc4MDA0MDgyN30.4kr_UhxffcLoBIky_HyBUScwUrDRRoaOSG3rn7HrMcc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/assets",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "assets"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"username\": \"phoebe\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"USER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"phoebe\",\r\n  \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaG9lYmUiLCJpYXQiOjE3Nzc0NDc3NzYsImV4cCI6MTc3NzUzNDE3Nn0.YVf3qY_C837Q41R5qmwt2uWUlY5uSm7wZ00__AVGD6Q",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/asset-service/api/auth",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "asset-service",
+                "api",
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "execution & reporting",
+      "item": [
+        {
+          "name": "order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"symbol\": \"AAPL\",\r\n  \"quantity\": 101,\r\n  \"side\": \"BUY\",\r\n  \"price\": 180.50,\r\n  \"accountId\": \"ACC001\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/order-service/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "order-service",
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "execute",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"orderId\": \"ORD-20260530-114648-499426\",\r\n  \"symbol\": \"AAPL\",\r\n  \"quantity\": 101,\r\n  \"price\": 250.75\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/trade-service/api/trades/execute",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "trade-service",
+                "api",
+                "trades",
+                "execute"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "orders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/order-service/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "order-service",
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
