@@ -1,6 +1,8 @@
 server:
   port: 8080   # Gateway runs on 8080
-
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
 spring:
   application:
     name: api-gateway
@@ -13,6 +15,18 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/asset-service/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
+          uri: http://localhost:8085
+          predicates:
+              - Path=/order-service/**
+          filters:
+            - StripPrefix=1
+        - id: trade-service
+          uri: http://localhost:8086
+          predicates:
+            - Path=/trade-service/**
           filters:
             - StripPrefix=1
 springdoc:

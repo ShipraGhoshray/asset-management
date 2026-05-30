@@ -4,6 +4,8 @@ order:
   service:
     url: http://localhost:8085
 spring:
+  application:
+    name: trade-service
   logging:
     file:
       name: logs/trade-service.log
